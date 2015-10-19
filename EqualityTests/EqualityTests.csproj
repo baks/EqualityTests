@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EqualityOperatorAssertion.cs" />
+    <Compile Include="EqualsOverrideAssertion.cs" />
     <Compile Include="EqualsSymmetricAssertion.cs" />
     <Compile Include="EqualsTransitiveAssertion.cs" />
     <Compile Include="Exception\EqualityOperatorException.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Exception\EqualsTransitiveException.cs" />
     <Compile Include="Extensions\SpecimenBuilderExtensions.cs" />
     <Compile Include="Extensions\MethodInfoExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordReplayConstructorSpecimensForTypeBuilder.cs" />
   </ItemGroup>
