@@ -76,6 +76,7 @@
     <Compile Include="EqualsOverrideAssertionTests.cs" />
     <Compile Include="EqualsSymmetricTests.cs" />
     <Compile Include="EqualsTransitiveTests.cs" />
+    <Compile Include="GetHashCodeOverrideAssertionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -21,15 +21,23 @@ namespace EqualityTests.AcceptanceTests
 
             Assert.Null(exception);
         }
-    }
 
-    public class ClassWhichDoesNotOverrideEqualsMethod { }
-
-    public class ClassWichOverrideEqualsMethod
-    {
-        public override bool Equals(object obj)
+        [Theory, AutoData]
+        public void ShouldExceptionMessageContainTypeName(EqualsOverrideAssertion sut)
         {
-            return base.Equals(obj);
+            var exception = Record.Exception(() => sut.Verify(typeof(ClassWhichDoesNotOverrideEqualsMethod)));
+
+            Assert.Contains(typeof(ClassWhichDoesNotOverrideEqualsMethod).Name, exception.Message);
+        }
+
+        public class ClassWhichDoesNotOverrideEqualsMethod { }
+
+        public class ClassWichOverrideEqualsMethod
+        {
+            public override bool Equals(object obj)
+            {
+                return base.Equals(obj);
+            }
         }
     }
 }

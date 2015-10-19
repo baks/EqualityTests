@@ -17,7 +17,8 @@ namespace EqualityTests
 
             if (equalsMethod.IsObjectEqualsMethod())
             {
-                throw new EqualsOverrideException();
+                throw new EqualsOverrideException(
+                    string.Format("Expected type {0} to override Equals method", type.Name));
             }
         }
     }

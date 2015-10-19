@@ -89,6 +89,7 @@
     <Compile Include="EqualsOverrideAssertionTests.cs" />
     <Compile Include="EqualsSymmetricAssertionTests.cs" />
     <Compile Include="EqualsTransitiveAssertionTests.cs" />
+    <Compile Include="GetHashCodeOverrideAssertionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordReplayConstructorSpecimensForTypeBuilderTests.cs" />
     <Compile Include="TestTypes.cs" />

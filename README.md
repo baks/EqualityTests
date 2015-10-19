@@ -8,6 +8,7 @@
 - [ ] Check whether implementation of equality works according to the comparison logic
 - [ ] `==` and `!=` operators are overloaded
 - [ ] `==` and `!=` operators produces correct results
+- [ ] `IEquatable<T>` is implemented
 - [ ] Using `IEquatable<T>` produces correct results
 - [x] Check if implementation is reflexive (**thanks to [EqualsSelfAssertion](https://github.com/AutoFixture/AutoFixture/blob/master/Src/Idioms/EqualsSelfAssertion.cs) class from** `AutoFixture.Idioms`)
 - [x] Check if implementation is symmetric [EqualsSymmetricAssertion]()
