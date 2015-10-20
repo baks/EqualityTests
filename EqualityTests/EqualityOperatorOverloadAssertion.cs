@@ -14,13 +14,13 @@ namespace EqualityTests
                 throw new ArgumentNullException("type");
             }
 
-            var equalityOperatorOverload = 
-                type.GetMethod("op_Equality", BindingFlags.Public | BindingFlags.Static);
+            var equalityOperatorOverload =
+                type.GetMethod("op_Equality", new[] {type, type});
 
             if (equalityOperatorOverload == null)
             {
                 throw new EqualityOperatorException(
-                    string.Format("Expected type {0} to overload == operator", type.Name));
+                    string.Format("Expected type {0} to overload == operator with parameters of type {0}", type.Name));
             }
         }
     }

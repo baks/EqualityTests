@@ -9,19 +9,15 @@ namespace EqualityTests.AcceptanceTests
         [Theory, AutoData]
         public void ShouldNotThrowWhenInequalityOperatorIsOverloaded(InequalityOperatorOverloadAssertion sut)
         {
-            var exception = Record.Exception(
-                () => sut.Verify(typeof (ClassWhichOverloadInequalityOperator)));
-
-            Assert.Null(exception);
+            EqualityTestAssert.ExceptionWasNotThrownForTestType<ClassWhichOverloadInequalityOperator>(sut);
         }
 
         [Theory, AutoData]
         public void ShouldThrowWhenInequalityOperatorIsNotOverloaded(InequalityOperatorOverloadAssertion sut)
         {
-            var exception = Record.Exception(
-                () => sut.Verify(typeof (ClassWhichDoesNotOverloadInequalityOperator)));
-
-            Assert.IsType<InequalityOperatorException>(exception);
+            EqualityTestAssert
+                .ExceptionWasThrownForTestType<InequalityOperatorException, ClassWhichDoesNotOverloadInequalityOperator>
+                (sut);
         }
 
         [Theory, AutoData]
