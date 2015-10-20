@@ -72,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EqualityOperatorOverloadAssertionTests.cs" />
     <Compile Include="EqualityOperatorTests.cs" />
     <Compile Include="EqualsOverrideAssertionTests.cs" />
     <Compile Include="EqualsSymmetricTests.cs" />

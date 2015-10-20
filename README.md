@@ -4,15 +4,15 @@
 
 ### TODO list
 
-- [ ] `Equals` and `GetHashCode` method are overrided
+- [x] `Equals` and `GetHashCode` method are overridden [EqualsOverrideAssertion](https://github.com/baks/EqualityTests/blob/master/EqualityTests/EqualsOverrideAssertion.cs) and [GetHashCodeOverrideAssertion](https://github.com/baks/EqualityTests/blob/master/EqualityTests/GetHashCodeOverrideAssertion.cs)
 - [ ] Check whether implementation of equality works according to the comparison logic
-- [ ] `==` and `!=` operators are overloaded
+- [ ] `==` and `!=` operators are overloaded [EqualityOperatorOverloadAssertion]()
 - [ ] `==` and `!=` operators produces correct results
 - [ ] `IEquatable<T>` is implemented
 - [ ] Using `IEquatable<T>` produces correct results
 - [x] Check if implementation is reflexive (**thanks to [EqualsSelfAssertion](https://github.com/AutoFixture/AutoFixture/blob/master/Src/Idioms/EqualsSelfAssertion.cs) class from** `AutoFixture.Idioms`)
-- [x] Check if implementation is symmetric [EqualsSymmetricAssertion]()
-- [x] Check if implementation is transitive [EqualsTransitiveAssertion]()
+- [x] Check if implementation is symmetric [EqualsSymmetricAssertion](https://github.com/baks/EqualityTests/blob/master/EqualityTests/EqualsSymmetricAssertion.cs)
+- [x] Check if implementation is transitive [EqualsTransitiveAssertion](https://github.com/baks/EqualityTests/blob/master/EqualityTests/EqualsTransitiveAssertion.cs)
 - [x] Check if implementation is consistent (**thanks to [EqualsSuccessiveAssertion](https://github.com/AutoFixture/AutoFixture/blob/master/Src/Idioms/EqualsSuccessiveAssertion.cs) class from** `AutoFixture.Idioms`)
 - [x] Check if returns false when compare to null (**thanks to [EqualsNullAssertion](https://github.com/AutoFixture/AutoFixture/blob/master/Src/Idioms/EqualsNullAssertion.cs) class from** `AutoFixture.Idioms`)
 - [x] `GetHashCode` implementation is consistent (**thanks to [GetHashCodeSuccessiveAssertion](https://github.com/AutoFixture/AutoFixture/blob/master/Src/Idioms/GetHashCodeSuccessiveAssertion.cs) class from** `AutoFixture.Idioms`)

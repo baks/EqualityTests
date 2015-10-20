@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="AutoDomainData.cs" />
     <Compile Include="EqualityOperatorAssertionTests.cs" />
+    <Compile Include="EqualityOperatorOverloadAssertionTests.cs" />
     <Compile Include="EqualsOverrideAssertionTests.cs" />
     <Compile Include="EqualsSymmetricAssertionTests.cs" />
     <Compile Include="EqualsTransitiveAssertionTests.cs" />
