@@ -5,8 +5,8 @@
 ### TODO list
 
 - [x] `Equals` and `GetHashCode` method are overridden [EqualsOverrideAssertion](https://github.com/baks/EqualityTests/blob/master/EqualityTests/EqualsOverrideAssertion.cs) and [GetHashCodeOverrideAssertion](https://github.com/baks/EqualityTests/blob/master/EqualityTests/GetHashCodeOverrideAssertion.cs)
-- [ ] Check whether implementation of equality works according to the comparison logic
-- [ ] `==` and `!=` operators are overloaded [EqualityOperatorOverloadAssertion]()
+- [] Check whether implementation of equality works according to the comparison logic
+- [x] `==` and `!=` operators are overloaded [EqualityOperatorOverloadAssertion](https://github.com/baks/EqualityTests/blob/master/EqualityTests/EqualityOperatorOverloadAssertion.cs) and [InequalityOperatorOverloadAssertion](https://github.com/baks/EqualityTests/blob/master/EqualityTests/InequalityOperatorOverloadAssertion.cs)
 - [ ] `==` and `!=` operators produces correct results
 - [ ] `IEquatable<T>` is implemented
 - [ ] Using `IEquatable<T>` produces correct results
