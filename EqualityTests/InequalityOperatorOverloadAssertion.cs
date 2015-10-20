@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using EqualityTests.Exception;
 using Ploeh.AutoFixture.Idioms;
 
@@ -15,12 +14,12 @@ namespace EqualityTests
             }
 
             var inequalityOperatorOverload =
-                type.GetMethod("op_Inequality", BindingFlags.Public | BindingFlags.Static);
+                type.GetMethod("op_Inequality", new [] {type, type});
 
             if (inequalityOperatorOverload == null)
             {
                 throw new InequalityOperatorException(
-                    string.Format("Expected type {0} to overload != operator",type.Name));
+                    string.Format("Expected type {0} to overload != operator with parameters of type {0}", type.Name));
             }
         }
     }

@@ -21,6 +21,16 @@ namespace EqualityTests.AcceptanceTests
         }
 
         [Theory, AutoData]
+        public void ShouldThrowWhenInequalityOperatorIsOverloadedWithParametersOtherThanTypeDefiningOperator(
+            InequalityOperatorOverloadAssertion sut)
+        {
+            EqualityTestAssert
+                .ExceptionWasThrownForTestType
+                <InequalityOperatorException,
+                    ClassWhichOverloadInequalityOperatorWithParametersOtherThanTypeDefiningOperator>(sut);
+        }
+
+        [Theory, AutoData]
         public void ShouldExceptionMessageContainTypeName(InequalityOperatorOverloadAssertion sut)
         {
             var exception = Record.Exception(
@@ -31,17 +41,34 @@ namespace EqualityTests.AcceptanceTests
 
         public class ClassWhichOverloadInequalityOperator
         {
-            public static bool operator ==(ClassWhichOverloadInequalityOperator a, ClassWhichOverloadInequalityOperator b)
+            public static bool operator ==(
+                ClassWhichOverloadInequalityOperator a, ClassWhichOverloadInequalityOperator b)
             {
                 return true;
             }
 
-            public static bool operator !=(ClassWhichOverloadInequalityOperator a, ClassWhichOverloadInequalityOperator b)
+            public static bool operator !=(
+                ClassWhichOverloadInequalityOperator a, ClassWhichOverloadInequalityOperator b)
             {
                 return true;
             }
         }
 
         public class ClassWhichDoesNotOverloadInequalityOperator { }
+
+        public class ClassWhichOverloadInequalityOperatorWithParametersOtherThanTypeDefiningOperator
+        {
+            public static bool operator ==(
+                ClassWhichOverloadInequalityOperatorWithParametersOtherThanTypeDefiningOperator a, string b)
+            {
+                return true;
+            }
+
+            public static bool operator !=(
+                ClassWhichOverloadInequalityOperatorWithParametersOtherThanTypeDefiningOperator a, string b)
+            {
+                return true;
+            }
+        }
     }
 }
