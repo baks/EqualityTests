@@ -6,11 +6,11 @@ using Ploeh.AutoFixture.Kernel;
 
 namespace EqualityTests
 {
-    public class EqualsLogicAssertion : IdiomaticAssertion
+    public class EqualsValueCheckAssertion : IdiomaticAssertion
     {
         private readonly ISpecimenBuilder specimenBuilder;
 
-        public EqualsLogicAssertion(ISpecimenBuilder specimenBuilder)
+        public EqualsValueCheckAssertion(ISpecimenBuilder specimenBuilder)
         {
             if (specimenBuilder == null)
             {
@@ -35,7 +35,7 @@ namespace EqualityTests
 
             if (areEqual == false)
             {
-                throw new EqualsLogicException(
+                throw new EqualsValueCheckException(
                     string.Format("Expected type {0} to perform value check but looks like it performs identity check",
                         type.Name));
             }
@@ -44,7 +44,7 @@ namespace EqualityTests
             {
                 if (instance.Equals(distinctInstance))
                 {
-                    throw new EqualsLogicException(string.Format("Expected {0} to be not equal to {1}",
+                    throw new EqualsValueCheckException(string.Format("Expected {0} to be not equal to {1}",
                         instance, distinctInstance));
                 }
             }

@@ -4,10 +4,10 @@ using Xunit;
 
 namespace EqualityTests.UnitTests
 {
-    public class EqualsLogicAssertionTests
+    public class EqualsValueCheckAssertionTests
     {
         [Theory, AutoDomainData]
-        public void ShouldBeIdiomaticAssertion(EqualsLogicAssertion sut)
+        public void ShouldBeIdiomaticAssertion(EqualsValueCheckAssertion sut)
         {
             Assert.IsAssignableFrom<IdiomaticAssertion>(sut);
         }
@@ -15,13 +15,13 @@ namespace EqualityTests.UnitTests
         [Theory, AutoDomainData]
         public void ShouldGuardCheckConstructorArguments(GuardClauseAssertion guardClauseAssertion)
         {
-            guardClauseAssertion.Verify(typeof(EqualsLogicAssertion).GetConstructors());
+            guardClauseAssertion.Verify(typeof(EqualsValueCheckAssertion).GetConstructors());
         }
 
         [Theory, AutoDomainData]
         public void ShouldGuardCheckVerifyMethodArguments(GuardClauseAssertion guardClauseAssertion)
         {
-            guardClauseAssertion.Verify(typeof (EqualsLogicAssertion).GetMethod("Verify", new[] {typeof (Type)}));
+            guardClauseAssertion.Verify(typeof (EqualsValueCheckAssertion).GetMethod("Verify", new[] {typeof (Type)}));
         }
     }
 }

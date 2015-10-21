@@ -4,16 +4,16 @@ using Xunit;
 
 namespace EqualityTests.AcceptanceTests
 {
-    public class EqualsLogicAssertionTests
+    public class EqualsValueCheckAssertionTests
     {
         [Theory, AutoData]
-        public void ShouldThrowWhenIdentityCheckInEqualsImplementation(EqualsLogicAssertion sut)
+        public void ShouldThrowWhenIdentityCheckInEqualsImplementation(EqualsValueCheckAssertion sut)
         {
-            EqualityTestAssert.ExceptionWasThrownForTestType<EqualsLogicException, object>(sut);
+            EqualityTestAssert.ExceptionWasThrownForTestType<EqualsValueCheckException, object>(sut);
         }
 
         [Theory, AutoData]
-        public void ShouldExplainWhyExceptionIsThrownWhenEqualsIsIdentityCheck(EqualsLogicAssertion sut)
+        public void ShouldExplainWhyExceptionIsThrownWhenEqualsIsIdentityCheck(EqualsValueCheckAssertion sut)
         {
             var exception = Record.Exception(
                 () => sut.Verify(typeof (object)));
@@ -24,21 +24,21 @@ namespace EqualityTests.AcceptanceTests
         }
 
         [Theory, AutoData]
-        public void ShouldNotThrowWhenValueCheckInEqualsImplementation(EqualsLogicAssertion sut)
+        public void ShouldNotThrowWhenValueCheckInEqualsImplementation(EqualsValueCheckAssertion sut)
         {
             EqualityTestAssert.ExceptionWasNotThrownForTestType<ValueObjectExample>(sut);
         }
 
         [Theory, AutoData]
-        public void ShouldThrowWhenNotEveryCtorArgumentInfluenceEquality(EqualsLogicAssertion sut)
+        public void ShouldThrowWhenNotEveryCtorArgumentInfluenceEquality(EqualsValueCheckAssertion sut)
         {
             EqualityTestAssert
                 .ExceptionWasThrownForTestType
-                <EqualsLogicException, ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl>(sut);
+                <EqualsValueCheckException, ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl>(sut);
         }
 
         [Theory, AutoData]
-        public void ShouldExplainWhyExceptionIsThrownWhenCtorArgDoesNotInfluenceEquality(EqualsLogicAssertion sut)
+        public void ShouldExplainWhyExceptionIsThrownWhenCtorArgDoesNotInfluenceEquality(EqualsValueCheckAssertion sut)
         {
             var exception = Record.Exception(
                 () => sut.Verify(typeof (ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl)));

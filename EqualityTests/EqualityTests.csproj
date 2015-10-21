@@ -57,12 +57,12 @@
     <Compile Include="ConstructorArgumentsTracker.cs" />
     <Compile Include="EqualityOperatorAssertion.cs" />
     <Compile Include="EqualityOperatorOverloadAssertion.cs" />
-    <Compile Include="EqualsLogicAssertion.cs" />
+    <Compile Include="EqualsValueCheckAssertion.cs" />
     <Compile Include="EqualsOverrideAssertion.cs" />
     <Compile Include="EqualsSymmetricAssertion.cs" />
     <Compile Include="EqualsTransitiveAssertion.cs" />
     <Compile Include="Exception\EqualityOperatorException.cs" />
-    <Compile Include="Exception\EqualsLogicException.cs" />
+    <Compile Include="Exception\EqualsValueCheckException.cs" />
     <Compile Include="Exception\EqualsSymmetricException.cs" />
     <Compile Include="Exception\EqualsTransitiveException.cs" />
     <Compile Include="Exception\IEquatableImplementedException.cs" />
