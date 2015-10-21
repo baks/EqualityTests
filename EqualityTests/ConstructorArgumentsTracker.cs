@@ -42,14 +42,37 @@ namespace EqualityTests
 
         public object CreateNewInstanceWithTheSameCtorArgsAsIn(object obj)
         {
-            if (!ctorInstancesArguments.ContainsKey(obj))
+            if (obj == null)
             {
-                throw new InvalidOperationException(string.Format("Instance {0} was not created within tracker", obj));
+                throw new ArgumentNullException("obj");
             }
+
+            CheckIfInstanceIsTracked(obj);
+
             return constructorInfo.Invoke(ctorInstancesArguments[obj].ToArray());
         }
 
         public IEnumerable<object> CreateDistinctInstancesByChaningOneByOneCtorArgIn(object obj)
+        {
+            if (obj == null)
+            {
+                throw new ArgumentNullException("obj");
+            }
+
+            CheckIfInstanceIsTracked(obj);
+
+            return DistinctInstancesFor(obj);
+        }
+
+        private void CheckIfInstanceIsTracked(object obj)
+        {
+            if (!ctorInstancesArguments.ContainsKey(obj))
+            {
+                throw new InvalidOperationException(string.Format("Instance {0} was not created within tracker", obj));
+            }
+        }
+
+        private IEnumerable<object> DistinctInstancesFor(object obj)
         {
             var arguments = ctorInstancesArguments[obj].ToList();
 

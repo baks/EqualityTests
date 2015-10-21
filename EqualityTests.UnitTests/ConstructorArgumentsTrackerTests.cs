@@ -14,17 +14,30 @@ namespace EqualityTests.UnitTests
         public void ShouldGuardCheckConstructorArguments(GuardClauseAssertion guardClauseAssertion)
         {
             guardClauseAssertion.Verify(typeof (ConstructorArgumentsTracker).GetConstructors().Single());
-        }
+        }     
+    }
 
+    public class ConstructorArgumentsTrackerTests_CreateNewInstanceMethod
+    {
         [Theory, AutoDomainData]
         public void ShouldCreateNewInstanceCreateParameters(
             [Substitute]ISpecimenBuilder specimenBuilder)
         {
-            var sut = new ConstructorArgumentsTracker(specimenBuilder, typeof (SimpleType).GetConstructors().Single());
+            var sut = new ConstructorArgumentsTracker(specimenBuilder, typeof(SimpleType).GetConstructors().Single());
 
             sut.CreateNewInstance();
 
-            specimenBuilder.Received(1).Create(Arg.Is(typeof (int)), Arg.Any<ISpecimenContext>());
+            specimenBuilder.Received(1).Create(Arg.Is(typeof(int)), Arg.Any<ISpecimenContext>());
+        }
+    }
+
+    public class ConstructorArgumentsTrackerTests_CreateNewInstanceWithTheSameCtorArgsAsIn
+    {
+        [Theory, AutoDomainData]
+        public void ShouldGuardCheckArguments(GuardClauseAssertion guardClauseAssertion)
+        {
+            guardClauseAssertion.Verify(
+                typeof (ConstructorArgumentsTracker).GetMethod("CreateNewInstanceWithTheSameCtorArgsAsIn"));
         }
 
         [Theory, AutoDomainData]
@@ -32,7 +45,7 @@ namespace EqualityTests.UnitTests
             [Substitute]ISpecimenBuilder specimenBuilder)
         {
             var sut = new ConstructorArgumentsTracker(specimenBuilder,
-                typeof (decimal).GetConstructor(new[] {typeof (double) }));
+                typeof(decimal).GetConstructor(new[] { typeof(double) }));
 
             var instance = sut.CreateNewInstance();
             var newInstance = sut.CreateNewInstanceWithTheSameCtorArgsAsIn(instance);
@@ -45,7 +58,7 @@ namespace EqualityTests.UnitTests
         public void ShouldThrowWhenPassedInstanceWasNotCreatedByTracker(
             ISpecimenBuilder specimenBuilder)
         {
-            var sut = new ConstructorArgumentsTracker(specimenBuilder, typeof (SimpleType).GetConstructors().Single());
+            var sut = new ConstructorArgumentsTracker(specimenBuilder, typeof(SimpleType).GetConstructors().Single());
 
             var exception = Record.Exception(() => sut.CreateNewInstanceWithTheSameCtorArgsAsIn(new object()));
 
@@ -56,12 +69,22 @@ namespace EqualityTests.UnitTests
         public void ShouldExplainWhyCannotCreateInstanceWhichWasNotTrackedByTracker(
             ISpecimenBuilder specimenBuilder)
         {
-            var sut = new ConstructorArgumentsTracker(specimenBuilder, typeof (SimpleType).GetConstructors().Single());
+            var sut = new ConstructorArgumentsTracker(specimenBuilder, typeof(SimpleType).GetConstructors().Single());
 
             var instance = new object();
             var exception = Record.Exception(() => sut.CreateNewInstanceWithTheSameCtorArgsAsIn(instance));
 
             Assert.Equal(string.Format("Instance {0} was not created within tracker", instance), exception.Message);
+        }
+    }
+
+    public class ConstructorArgumentTrackerTests_CreateDistinctInstancesByChaningOneByOneCtorArgInMethod
+    {
+        [Theory, AutoDomainData]
+        public void ShouldGuardCheckArguments(GuardClauseAssertion guardClauseAssertion)
+        {
+            guardClauseAssertion.Verify(
+                typeof(ConstructorArgumentsTracker).GetMethod("CreateDistinctInstancesByChaningOneByOneCtorArgIn"));
         }
 
         [Theory, AutoDomainData]
@@ -79,6 +102,27 @@ namespace EqualityTests.UnitTests
 
             specimenBuilder.Received(1).Create(Arg.Is(typeof(int)), Arg.Any<ISpecimenContext>());
             Assert.Equal(1, instances.Count);
+        }
+
+        [Theory, AutoDomainData]
+        public void ShouldThrowWhenPassedInstanceWasNotCreatedByTracker(
+            ConstructorArgumentsTracker sut)
+        {
+            var exception =
+                Record.Exception(() => sut.CreateDistinctInstancesByChaningOneByOneCtorArgIn(new object()).ToArray());
+
+            Assert.IsType<InvalidOperationException>(exception);
+        }
+
+        [Theory, AutoDomainData]
+        public void ShouldExplainWhyCannotCreateInstanceWhichWasNotTrackedByTracker(
+            ConstructorArgumentsTracker sut)
+        {
+            var instance = new object();
+            var exception =
+                Record.Exception(() => sut.CreateDistinctInstancesByChaningOneByOneCtorArgIn(instance).ToArray());
+
+            Assert.Equal(string.Format("Instance {0} was not created within tracker", instance), exception.Message);
         }
     }
 }

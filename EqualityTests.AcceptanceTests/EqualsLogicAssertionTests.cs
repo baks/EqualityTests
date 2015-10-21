@@ -13,6 +13,17 @@ namespace EqualityTests.AcceptanceTests
         }
 
         [Theory, AutoData]
+        public void ShouldExplainWhyExceptionIsThrownWhenEqualsIsIdentityCheck(EqualsLogicAssertion sut)
+        {
+            var exception = Record.Exception(
+                () => sut.Verify(typeof (object)));
+
+            Assert.Equal(
+                string.Format("Expected type {0} to perform value check but looks like it performs identity check", typeof (object).Name),
+                exception.Message);
+        }
+
+        [Theory, AutoData]
         public void ShouldNotThrowWhenValueCheckInEqualsImplementation(EqualsLogicAssertion sut)
         {
             EqualityTestAssert.ExceptionWasNotThrownForTestType<ValueObjectExample>(sut);
@@ -24,6 +35,17 @@ namespace EqualityTests.AcceptanceTests
             EqualityTestAssert
                 .ExceptionWasThrownForTestType
                 <EqualsLogicException, ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl>(sut);
+        }
+
+        [Theory, AutoData]
+        public void ShouldExplainWhyExceptionIsThrownWhenCtorArgDoesNotInfluenceEquality(EqualsLogicAssertion sut)
+        {
+            var exception = Record.Exception(
+                () => sut.Verify(typeof (ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl)));
+
+            Assert.Equal(
+                string.Format("Expected {0} to be not equal to {0}",
+                    new ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl(1,1)), exception.Message);
         }
 
         public class ValueObjectExample

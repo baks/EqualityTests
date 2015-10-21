@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using EqualityTests.Exception;
-using EqualityTests.Extensions;
 using Ploeh.AutoFixture.Idioms;
 using Ploeh.AutoFixture.Kernel;
 
@@ -38,14 +35,18 @@ namespace EqualityTests
 
             if (areEqual == false)
             {
-                throw new EqualsLogicException();
+                throw new EqualsLogicException(
+                    string.Format("Expected type {0} to perform value check but looks like it performs identity check",
+                        type.Name));
             }
 
-            if (
-                tracker.CreateDistinctInstancesByChaningOneByOneCtorArgIn(instance)
-                    .Any(distinctInstance => instance.Equals(distinctInstance)))
+            foreach (var distinctInstance in tracker.CreateDistinctInstancesByChaningOneByOneCtorArgIn(instance))
             {
-                throw new EqualsLogicException();
+                if (instance.Equals(distinctInstance))
+                {
+                    throw new EqualsLogicException(string.Format("Expected {0} to be not equal to {1}",
+                        instance, distinctInstance));
+                }
             }
         }
     }
