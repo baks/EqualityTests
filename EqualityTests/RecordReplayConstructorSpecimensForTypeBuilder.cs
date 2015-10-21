@@ -10,7 +10,7 @@ namespace EqualityTests
     {
         private readonly ISpecimenBuilder builder;
         private readonly IRequestSpecification requestFilter;
-        private readonly List<object> recordedSpecimens;
+        public readonly List<object> recordedSpecimens;
 
         public RecordReplayConstructorSpecimensForTypeBuilder(ISpecimenBuilder builder, IRequestSpecification requestToRecordSpecification)
         {
