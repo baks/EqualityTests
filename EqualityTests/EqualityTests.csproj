@@ -62,11 +62,13 @@
     <Compile Include="Exception\EqualityOperatorException.cs" />
     <Compile Include="Exception\EqualsSymmetricException.cs" />
     <Compile Include="Exception\EqualsTransitiveException.cs" />
+    <Compile Include="Exception\IEquatableImplementedException.cs" />
     <Compile Include="Exception\InequalityOperatorException.cs" />
     <Compile Include="Extensions\SpecimenBuilderExtensions.cs" />
     <Compile Include="Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="GetHashCodeOverrideAssertion.cs" />
+    <Compile Include="IEquatableImplementedAssertion.cs" />
     <Compile Include="InequalityOperatorOverloadAssertion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordReplayConstructorSpecimensForTypeBuilder.cs" />
