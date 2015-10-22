@@ -48,6 +48,12 @@ namespace EqualityTests.AcceptanceTests
                     new ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl(1,1)), exception.Message);
         }
 
+        [Theory, AutoData]
+        public void ShouldNotThrowWhenValueCheckInEqualsImplementation2(EqualsValueCheckAssertion sut)
+        {
+            EqualityTestAssert.ExceptionWasNotThrownForTestType<ValueObjectWhichTakesOtherValueObjectInCtor>(sut);
+        }
+
         public class ValueObjectExample
         {
             public ValueObjectExample(int x)
@@ -79,6 +85,23 @@ namespace EqualityTests.AcceptanceTests
                 var vo = obj as ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl;
 
                 return this.X == vo.X;
+            }
+        }
+
+        public class ValueObjectWhichTakesOtherValueObjectInCtor
+        {
+            public ValueObjectWhichTakesOtherValueObjectInCtor(ValueObjectExample valueObject)
+            {
+                ValueObject = valueObject;
+            }
+
+            public ValueObjectExample ValueObject { get; private set; }
+
+            public override bool Equals(object obj)
+            {
+                var vo = obj as ValueObjectWhichTakesOtherValueObjectInCtor;
+
+                return this.ValueObject.Equals(vo.ValueObject);
             }
         }
     }

@@ -75,6 +75,7 @@
     <Compile Include="AssertExtensions.cs" />
     <Compile Include="EqualityOperatorOverloadAssertionTests.cs" />
     <Compile Include="EqualityOperatorTests.cs" />
+    <Compile Include="EqualityOperatorValueCheckTests.cs" />
     <Compile Include="EqualsValueCheckAssertionTests.cs" />
     <Compile Include="EqualsOverrideAssertionTests.cs" />
     <Compile Include="EqualsSymmetricTests.cs" />
