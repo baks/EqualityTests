@@ -96,6 +96,7 @@
     <Compile Include="GetHashCodeOverrideAssertionTests.cs" />
     <Compile Include="IEquatableImplementedAssertionTests.cs" />
     <Compile Include="InequalityOperatorOverloadAssertionTests.cs" />
+    <Compile Include="InequalityOperatorValueCheckAssertionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordReplayConstructorSpecimensForTypeBuilderTests.cs" />
     <Compile Include="SpecimensUsedInConstructorCollectorTests.cs" />
