@@ -58,6 +58,7 @@
     <Compile Include="EqualityOperatorAssertion.cs" />
     <Compile Include="EqualityOperatorOverloadAssertion.cs" />
     <Compile Include="EqualityOperatorValueCheckAssertion.cs" />
+    <Compile Include="EqualityTests.cs" />
     <Compile Include="EqualsValueCheckAssertion.cs" />
     <Compile Include="EqualsOverrideAssertion.cs" />
     <Compile Include="EqualsSymmetricAssertion.cs" />

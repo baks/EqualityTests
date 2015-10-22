@@ -2,5 +2,8 @@
 {
     public class EqualityOperatorValueCheckException : System.Exception
     {
+        public EqualityOperatorValueCheckException(string message) : base(message)
+        {   
+        }
     }
 }

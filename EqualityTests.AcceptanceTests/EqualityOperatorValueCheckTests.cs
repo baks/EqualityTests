@@ -22,12 +22,34 @@ namespace EqualityTests.AcceptanceTests
         }
 
         [Theory, AutoData]
+        public void ShouldExplainWhyExceptionIsThrownWhenIdentityCheck(EqualityOperatorValueCheckAssertion sut)
+        {
+            var exception = Record.Exception(
+                () => sut.Verify(typeof(ClassWithEqualityOperatorIdentityCheck)));
+
+            Assert.Contains(
+                string.Format(
+                    "Expected type {0} == operator to perform value check but looks like it performs identity check",
+                    typeof (ClassWithEqualityOperatorIdentityCheck).Name), exception.Message);
+        }
+
+        [Theory, AutoData]
         public void ShouldThrowExceptionWhenEqualityOperatorReturnsDifferentResultThanEquals(
             EqualityOperatorValueCheckAssertion sut)
         {
             EqualityTestAssert
                 .ExceptionWasThrownForTestType
                 <EqualityOperatorValueCheckException, ClassWithEqualityOperatorThatDifferFromEquals>(sut);
+        }
+
+        [Theory, AutoData]
+        public void ShouldExplainWhyExceptionIsThrownWhenEqualityOperatorDiffersFromEqualsMethod(EqualityOperatorValueCheckAssertion sut)
+        {
+            var exception = Record.Exception(
+                () => sut.Verify(typeof(ClassWithEqualityOperatorThatDifferFromEquals)));
+
+            Assert.Contains(string.Format("Expected type {0} == operator to returns the same results as Equals method",
+                typeof (ClassWithEqualityOperatorThatDifferFromEquals).Name), exception.Message);
         }
 
         public class ClassWithEqualityOperatorValueCheck
@@ -50,7 +72,18 @@ namespace EqualityTests.AcceptanceTests
             }
         }
 
-        public class ClassWithEqualityOperatorIdentityCheck { }
+        public class ClassWithEqualityOperatorIdentityCheck
+        {
+            public static bool operator ==(ClassWithEqualityOperatorIdentityCheck a, ClassWithEqualityOperatorIdentityCheck b)
+            {
+                return ReferenceEquals(a, b);
+            }
+
+            public static bool operator !=(ClassWithEqualityOperatorIdentityCheck a, ClassWithEqualityOperatorIdentityCheck b)
+            {
+                return !ReferenceEquals(a, b);
+            }
+        }
 
         public class ClassWithEqualityOperatorThatDifferFromEquals
         {
