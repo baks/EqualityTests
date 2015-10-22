@@ -11,7 +11,7 @@ namespace EqualityTests
     {
         private readonly ISpecimenBuilder specimenBuilder;
         private readonly ConstructorInfo constructorInfo;
-        private readonly Dictionary<object, IEnumerable<object>> ctorInstancesArguments;
+        private readonly SpecimensUsedInConstructorCollector collector;
 
         public ConstructorArgumentsTracker(ISpecimenBuilder specimenBuilder, ConstructorInfo constructorInfo)
         {
@@ -26,7 +26,7 @@ namespace EqualityTests
 
             this.specimenBuilder = specimenBuilder;
             this.constructorInfo = constructorInfo;
-            this.ctorInstancesArguments = new Dictionary<object, IEnumerable<object>>();
+            this.collector = new SpecimensUsedInConstructorCollector();
         }
 
         public object CreateNewInstance()
@@ -35,7 +35,8 @@ namespace EqualityTests
                               select specimenBuilder.CreateInstanceOfType(pi.ParameterType)).ToList();
 
             var instance = constructorInfo.Invoke(parameters.ToArray());
-            ctorInstancesArguments.Add(instance, parameters);
+
+            collector.AddSpecimens(instance, parameters.ToArray());
 
             return instance;
         }
@@ -47,9 +48,7 @@ namespace EqualityTests
                 throw new ArgumentNullException("obj");
             }
 
-            CheckIfInstanceIsTracked(obj);
-
-            return constructorInfo.Invoke(ctorInstancesArguments[obj].ToArray());
+            return constructorInfo.Invoke(collector.GetSpecimens(obj));
         }
 
         public IEnumerable<object> CreateDistinctInstancesByChaningOneByOneCtorArgIn(object obj)
@@ -59,24 +58,14 @@ namespace EqualityTests
                 throw new ArgumentNullException("obj");
             }
 
-            CheckIfInstanceIsTracked(obj);
-
             return DistinctInstancesFor(obj);
-        }
-
-        private void CheckIfInstanceIsTracked(object obj)
-        {
-            if (!ctorInstancesArguments.ContainsKey(obj))
-            {
-                throw new InvalidOperationException(string.Format("Instance {0} was not created within tracker", obj));
-            }
         }
 
         private IEnumerable<object> DistinctInstancesFor(object obj)
         {
-            var arguments = ctorInstancesArguments[obj].ToList();
+            var arguments = collector.GetSpecimens(obj);
 
-            for (var idx = 0; idx < arguments.Count; idx++)
+            for (var idx = 0; idx < arguments.Length; idx++)
             {
                 yield return constructorInfo.Invoke(arguments.Select(
                     (o, i) => i == idx ? specimenBuilder.CreateInstanceOfType(o.GetType()) : o).ToArray());

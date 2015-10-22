@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NSubstitute;
 using Ploeh.AutoFixture.AutoNSubstitute;
 using Ploeh.AutoFixture.Idioms;
@@ -53,29 +52,6 @@ namespace EqualityTests.UnitTests
             Assert.False(ReferenceEquals(instance, newInstance));
             Assert.True(instance.Equals(newInstance));
         }
-
-        [Theory, AutoDomainData]
-        public void ShouldThrowWhenPassedInstanceWasNotCreatedByTracker(
-            ISpecimenBuilder specimenBuilder)
-        {
-            var sut = new ConstructorArgumentsTracker(specimenBuilder, typeof(SimpleType).GetConstructors().Single());
-
-            var exception = Record.Exception(() => sut.CreateNewInstanceWithTheSameCtorArgsAsIn(new object()));
-
-            Assert.IsType<InvalidOperationException>(exception);
-        }
-
-        [Theory, AutoDomainData]
-        public void ShouldExplainWhyCannotCreateInstanceWhichWasNotTrackedByTracker(
-            ISpecimenBuilder specimenBuilder)
-        {
-            var sut = new ConstructorArgumentsTracker(specimenBuilder, typeof(SimpleType).GetConstructors().Single());
-
-            var instance = new object();
-            var exception = Record.Exception(() => sut.CreateNewInstanceWithTheSameCtorArgsAsIn(instance));
-
-            Assert.Equal(string.Format("Instance {0} was not created within tracker", instance), exception.Message);
-        }
     }
 
     public class ConstructorArgumentTrackerTests_CreateDistinctInstancesByChaningOneByOneCtorArgInMethod
@@ -102,27 +78,6 @@ namespace EqualityTests.UnitTests
 
             specimenBuilder.Received(1).Create(Arg.Is(typeof(int)), Arg.Any<ISpecimenContext>());
             Assert.Equal(1, instances.Count);
-        }
-
-        [Theory, AutoDomainData]
-        public void ShouldThrowWhenPassedInstanceWasNotCreatedByTracker(
-            ConstructorArgumentsTracker sut)
-        {
-            var exception =
-                Record.Exception(() => sut.CreateDistinctInstancesByChaningOneByOneCtorArgIn(new object()).ToArray());
-
-            Assert.IsType<InvalidOperationException>(exception);
-        }
-
-        [Theory, AutoDomainData]
-        public void ShouldExplainWhyCannotCreateInstanceWhichWasNotTrackedByTracker(
-            ConstructorArgumentsTracker sut)
-        {
-            var instance = new object();
-            var exception =
-                Record.Exception(() => sut.CreateDistinctInstancesByChaningOneByOneCtorArgIn(instance).ToArray());
-
-            Assert.Equal(string.Format("Instance {0} was not created within tracker", instance), exception.Message);
         }
     }
 }
