@@ -31,7 +31,7 @@ namespace EqualityTests
             yield return new EqualityOperatorOverloadAssertion();
             yield return new InequalityOperatorOverloadAssertion();
             yield return new EqualityOperatorValueCheckAssertion(specimenBuilder);
-            yield return new InequalityOperatorValueCheckAssertion();
+            yield return new InequalityOperatorValueCheckAssertion(specimenBuilder);
             yield return new IEquatableImplementedAssertion();
             //new IEquatableCorrectAssertion()
         }
