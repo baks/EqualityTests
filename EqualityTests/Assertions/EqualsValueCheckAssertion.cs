@@ -7,18 +7,6 @@ using Ploeh.AutoFixture.Kernel;
 
 namespace EqualityTests.Assertions
 {
-    public class TestCase
-    {
-        public object Example { get; set; }
-        public object Against { get; set; }
-        public bool ExpectedResult { get; set; }
-    }
-
-    public interface IEqualityTestCaseProvider 
-    {
-        IEnumerable<TestCase> TestCasesFor(Type type);
-    }
-
     public class EqualityTestCaseProvider : IEqualityTestCaseProvider
     {
         private readonly ISpecimenBuilder specimenBuilder;

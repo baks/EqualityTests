@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EqualityTestCase.cs" />
     <Compile Include="ConstructorArgumentsTracker.cs" />
     <Compile Include="Assertions\EqualityOperatorAssertion.cs" />
     <Compile Include="Assertions\EqualityOperatorOverloadAssertion.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assertions\IEquatableImplementedAssertion.cs" />
     <Compile Include="Assertions\InequalityOperatorOverloadAssertion.cs" />
     <Compile Include="Assertions\InequalityOperatorValueCheckAssertion.cs" />
+    <Compile Include="IEqualityTestCaseProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordReplayConstructorSpecimensForTypeBuilder.cs" />
     <Compile Include="SpecimensUsedInConstructorCollector.cs" />
