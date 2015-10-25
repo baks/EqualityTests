@@ -25,7 +25,7 @@ namespace EqualityTests
             yield return new EqualsTransitiveAssertion(specimenBuilder);
             yield return new EqualsSuccessiveAssertion(specimenBuilder);
             yield return new EqualsNullAssertion(specimenBuilder);
-            yield return new EqualsValueCheckAssertion(specimenBuilder);
+            yield return new EqualsValueCheckAssertion(new EqualityTestCaseProvider(specimenBuilder));
             //new GetHashCodeCorrectAssertion(),
             yield return new GetHashCodeSuccessiveAssertion(specimenBuilder);
             yield return new EqualityOperatorOverloadAssertion();

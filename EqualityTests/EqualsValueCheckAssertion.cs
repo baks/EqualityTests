@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EqualityTests.Exception;
 using Ploeh.AutoFixture.Idioms;
@@ -6,17 +7,54 @@ using Ploeh.AutoFixture.Kernel;
 
 namespace EqualityTests
 {
-    public class EqualsValueCheckAssertion : IdiomaticAssertion
+    public class TestCase
+    {
+        public object Example { get; set; }
+        public object Against { get; set; }
+        public bool ExpectedResult { get; set; }
+    }
+
+    public interface IEqualityTestCaseProvider 
+    {
+        IEnumerable<TestCase> TestCasesFor(Type type);
+    }
+
+    public class EqualityTestCaseProvider : IEqualityTestCaseProvider
     {
         private readonly ISpecimenBuilder specimenBuilder;
 
-        public EqualsValueCheckAssertion(ISpecimenBuilder specimenBuilder)
+        public EqualityTestCaseProvider(ISpecimenBuilder specimenBuilder)
         {
-            if (specimenBuilder == null)
-            {
-                throw new ArgumentNullException("specimenBuilder");
-            }
             this.specimenBuilder = specimenBuilder;
+        }
+
+        public IEnumerable<TestCase> TestCasesFor(Type type)
+        {
+            var tracker = new ConstructorArgumentsTracker(specimenBuilder, type.GetConstructors().Single());
+
+            var instance = tracker.CreateNewInstance();
+            var anotherInstance = tracker.CreateNewInstanceWithTheSameCtorArgsAsIn(instance);
+
+            yield return new TestCase {Example = instance, Against = anotherInstance, ExpectedResult = true};
+
+            foreach (var distinctInstance in tracker.CreateDistinctInstancesByChaningOneByOneCtorArgIn(instance))
+            {
+                yield return new TestCase {Example = instance, Against = distinctInstance, ExpectedResult = false};
+            }
+        }
+    }
+
+    public class EqualsValueCheckAssertion : IdiomaticAssertion
+    {
+        private readonly IEqualityTestCaseProvider equalityTestCaseProvider;
+
+        public EqualsValueCheckAssertion(IEqualityTestCaseProvider equalityTestCaseProvider)
+        {
+            if (equalityTestCaseProvider == null)
+            {
+                throw new ArgumentNullException("equalityTestCaseProvider");
+            }
+            this.equalityTestCaseProvider = equalityTestCaseProvider;
         }
 
         public override void Verify(Type type)
@@ -26,26 +64,22 @@ namespace EqualityTests
                 throw new ArgumentNullException("type");
             }
 
-            var tracker = new ConstructorArgumentsTracker(specimenBuilder, type.GetConstructors().Single());
-
-            var instance = tracker.CreateNewInstance();
-            var anotherInstance = tracker.CreateNewInstanceWithTheSameCtorArgsAsIn(instance);
-
-            var areEqual = instance.Equals(anotherInstance);
-
-            if (areEqual == false)
+            foreach (var testCase in equalityTestCaseProvider.TestCasesFor(type))
             {
-                throw new EqualsValueCheckException(
-                    string.Format("Expected type {0} to perform value check but looks like it performs identity check",
-                        type.Name));
-            }
+                var result = testCase.Example.Equals(testCase.Against);
 
-            foreach (var distinctInstance in tracker.CreateDistinctInstancesByChaningOneByOneCtorArgIn(instance))
-            {
-                if (instance.Equals(distinctInstance))
+                if (result != testCase.ExpectedResult)
                 {
+                    if (testCase.ExpectedResult)
+                    {
+                        throw new EqualsValueCheckException(
+                            string.Format(
+                                "Expected type {0} to perform value check but looks like it performs identity check",
+                                type.Name));
+                    }
+
                     throw new EqualsValueCheckException(string.Format("Expected {0} to be not equal to {1}",
-                        instance, distinctInstance));
+                        testCase.Example, testCase.Against));
                 }
             }
         }

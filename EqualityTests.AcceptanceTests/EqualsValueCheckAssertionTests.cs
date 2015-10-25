@@ -1,4 +1,5 @@
-﻿using EqualityTests.Exception;
+﻿using EqualityTests.AcceptanceTests.Customizations;
+using EqualityTests.Exception;
 using Ploeh.AutoFixture.Xunit2;
 using Xunit;
 
@@ -6,13 +7,13 @@ namespace EqualityTests.AcceptanceTests
 {
     public class EqualsValueCheckAssertionTests
     {
-        [Theory, AutoData]
+        [Theory, AutoDataWithCustomizations(typeof (EqualityTestCaseProviderCustomization))]
         public void ShouldThrowWhenIdentityCheckInEqualsImplementation(EqualsValueCheckAssertion sut)
         {
             EqualityTestAssert.ExceptionWasThrownForTestType<EqualsValueCheckException, object>(sut);
         }
 
-        [Theory, AutoData]
+        [Theory, AutoDataWithCustomizations(typeof(EqualityTestCaseProviderCustomization))]
         public void ShouldExplainWhyExceptionIsThrownWhenEqualsIsIdentityCheck(EqualsValueCheckAssertion sut)
         {
             var exception = Record.Exception(
@@ -23,13 +24,13 @@ namespace EqualityTests.AcceptanceTests
                 exception.Message);
         }
 
-        [Theory, AutoData]
+        [Theory, AutoDataWithCustomizations(typeof(EqualityTestCaseProviderCustomization))]
         public void ShouldNotThrowWhenValueCheckInEqualsImplementation(EqualsValueCheckAssertion sut)
         {
             EqualityTestAssert.ExceptionWasNotThrownForTestType<ValueObjectExample>(sut);
         }
 
-        [Theory, AutoData]
+        [Theory, AutoDataWithCustomizations(typeof(EqualityTestCaseProviderCustomization))]
         public void ShouldThrowWhenNotEveryCtorArgumentInfluenceEquality(EqualsValueCheckAssertion sut)
         {
             EqualityTestAssert
@@ -37,7 +38,7 @@ namespace EqualityTests.AcceptanceTests
                 <EqualsValueCheckException, ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl>(sut);
         }
 
-        [Theory, AutoData]
+        [Theory, AutoDataWithCustomizations(typeof(EqualityTestCaseProviderCustomization))]
         public void ShouldExplainWhyExceptionIsThrownWhenCtorArgDoesNotInfluenceEquality(EqualsValueCheckAssertion sut)
         {
             var exception = Record.Exception(
@@ -46,12 +47,6 @@ namespace EqualityTests.AcceptanceTests
             Assert.Equal(
                 string.Format("Expected {0} to be not equal to {0}",
                     new ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl(1,1)), exception.Message);
-        }
-
-        [Theory, AutoData]
-        public void ShouldNotThrowWhenValueCheckInEqualsImplementation2(EqualsValueCheckAssertion sut)
-        {
-            EqualityTestAssert.ExceptionWasNotThrownForTestType<ValueObjectWhichTakesOtherValueObjectInCtor>(sut);
         }
 
         public class ValueObjectExample
