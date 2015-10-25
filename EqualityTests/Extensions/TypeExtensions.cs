@@ -14,5 +14,10 @@ namespace EqualityTests.Extensions
         {
             return type.GetMethod("op_Equality", new[] { type, type });
         }
+
+        public static MethodInfo GetInequalityOperatorMethod(this Type type)
+        {
+            return type.GetMethod("op_Inequality", new[] { type, type });
+        }
     }
 }

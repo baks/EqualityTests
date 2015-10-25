@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using EqualityTests.Exception;
+using EqualityTests.Extensions;
 using Ploeh.AutoFixture.Idioms;
 using Ploeh.AutoFixture.Kernel;
 
@@ -8,15 +9,15 @@ namespace EqualityTests.Assertions
 {
     public class InequalityOperatorValueCheckAssertion : IdiomaticAssertion
     {
-        private readonly ISpecimenBuilder specimenBuilder;
+        private readonly IEqualityTestCaseProvider equalityTestCaseProvider;
 
-        public InequalityOperatorValueCheckAssertion(ISpecimenBuilder specimenBuilder)
+        public InequalityOperatorValueCheckAssertion(IEqualityTestCaseProvider equalityTestCaseProvider)
         {
-            if (specimenBuilder == null)
+            if (equalityTestCaseProvider == null)
             {
-                throw new ArgumentNullException("specimenBuilder");
+                throw new ArgumentNullException("equalityTestCaseProvider");
             }
-            this.specimenBuilder = specimenBuilder;
+            this.equalityTestCaseProvider = equalityTestCaseProvider;
         }
 
         public override void Verify(Type type)
@@ -26,31 +27,26 @@ namespace EqualityTests.Assertions
                 throw new ArgumentNullException("type");
             }
 
-            var inequalityOperator =
-                type.GetMethod("op_Inequality", new[] { type, type });
+            var inequalityOperator = type.GetInequalityOperatorMethod();
 
-            var tracker = new ConstructorArgumentsTracker(specimenBuilder, type.GetConstructors().Single());
-
-            var instance = tracker.CreateNewInstance();
-            var anotherInstance = tracker.CreateNewInstanceWithTheSameCtorArgsAsIn(instance);
-
-            var inequalityOperatorResult = (bool)inequalityOperator.Invoke(null, new[] { instance, anotherInstance });
-
-            if (inequalityOperatorResult)
+            foreach (var testCase in equalityTestCaseProvider.For(type))
             {
-                throw new InequalityOperatorValueCheckException(
-                    string.Format(
-                        "Expected type {0} != operator to perform value check but looks like it performs identity check",
-                        type.Name));
-            }
+                var result =
+                    (bool) inequalityOperator.Invoke(null, new[] {testCase.FirstInstance, testCase.SecondInstance});
 
-            foreach (var distinctInstance in tracker.CreateDistinctInstancesByChaningOneByOneCtorArgIn(instance))
-            {
-                if (instance.Equals(distinctInstance) ==
-                    (bool)inequalityOperator.Invoke(null, new[] { instance, distinctInstance }))
+                if (result == testCase.ExpectedResult)
                 {
-                    throw new InequalityOperatorValueCheckException(string.Format(
-                        "Expected type {0} != operator to returns equivalent results as Equals method", type.Name));
+                    if (testCase.ExpectedResult == false)
+                    {
+                        throw new InequalityOperatorValueCheckException(
+                            string.Format(
+                                "Expected type {0} != operator to perform value check but looks like it performs identity check",
+                                type.Name));
+                    }
+
+                    throw new InequalityOperatorValueCheckException(
+                        string.Format("Expected type {0} != operator to returns result {1} for {2} == {3}",
+                            type.Name, testCase.ExpectedResult, testCase.FirstInstance, testCase.SecondInstance));
                 }
             }
         }
