@@ -1,20 +1,18 @@
-﻿using EqualityTests.AcceptanceTests.Customizations;
-using EqualityTests.Assertions;
+﻿using EqualityTests.Assertions;
 using EqualityTests.Exception;
-using Ploeh.AutoFixture.Xunit2;
 using Xunit;
 
 namespace EqualityTests.AcceptanceTests
 {
     public class EqualsValueCheckAssertionTests
     {
-        [Theory, AutoDataWithCustomizations(typeof (EqualityTestCaseProviderCustomization))]
+        [Theory, AutoTestData]
         public void ShouldThrowWhenIdentityCheckInEqualsImplementation(EqualsValueCheckAssertion sut)
         {
             EqualityTestAssert.ExceptionWasThrownForTestType<EqualsValueCheckException, object>(sut);
         }
 
-        [Theory, AutoDataWithCustomizations(typeof(EqualityTestCaseProviderCustomization))]
+        [Theory, AutoTestData]
         public void ShouldExplainWhyExceptionIsThrownWhenEqualsIsIdentityCheck(EqualsValueCheckAssertion sut)
         {
             var exception = Record.Exception(
@@ -25,13 +23,13 @@ namespace EqualityTests.AcceptanceTests
                 exception.Message);
         }
 
-        [Theory, AutoDataWithCustomizations(typeof(EqualityTestCaseProviderCustomization))]
+        [Theory, AutoTestData]
         public void ShouldNotThrowWhenValueCheckInEqualsImplementation(EqualsValueCheckAssertion sut)
         {
             EqualityTestAssert.ExceptionWasNotThrownForTestType<ValueObjectExample>(sut);
         }
 
-        [Theory, AutoDataWithCustomizations(typeof(EqualityTestCaseProviderCustomization))]
+        [Theory, AutoTestData]
         public void ShouldThrowWhenNotEveryCtorArgumentInfluenceEquality(EqualsValueCheckAssertion sut)
         {
             EqualityTestAssert
@@ -39,7 +37,7 @@ namespace EqualityTests.AcceptanceTests
                 <EqualsValueCheckException, ValueObjectButSecondCtrArgDoesntTakePartInEqualsImpl>(sut);
         }
 
-        [Theory, AutoDataWithCustomizations(typeof(EqualityTestCaseProviderCustomization))]
+        [Theory, AutoTestData]
         public void ShouldExplainWhyExceptionIsThrownWhenCtorArgDoesNotInfluenceEquality(EqualsValueCheckAssertion sut)
         {
             var exception = Record.Exception(

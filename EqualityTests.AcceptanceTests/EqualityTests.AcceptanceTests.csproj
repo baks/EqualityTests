@@ -73,10 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssertExtensions.cs" />
-    <Compile Include="Customizations\AutoDataWithCustomizations.cs" />
+    <Compile Include="AutoTestData.cs" />
     <Compile Include="Customizations\EqualityTestCaseProviderCustomization.cs" />
     <Compile Include="EqualityOperatorOverloadAssertionTests.cs" />
-    <Compile Include="EqualityOperatorTests.cs" />
     <Compile Include="EqualityOperatorValueCheckTests.cs" />
     <Compile Include="EqualsValueCheckAssertionTests.cs" />
     <Compile Include="EqualsOverrideAssertionTests.cs" />

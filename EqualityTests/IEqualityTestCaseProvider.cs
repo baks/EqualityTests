@@ -5,6 +5,6 @@ namespace EqualityTests
 {
     public interface IEqualityTestCaseProvider
     {
-        IEnumerable<TestCase> TestCasesFor(Type type);
+        IEnumerable<EqualityTestCase> For(Type type);
     }
 }

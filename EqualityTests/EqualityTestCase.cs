@@ -1,9 +1,9 @@
 namespace EqualityTests
 {
-    public class TestCase
+    public class EqualityTestCase
     {
-        public object Example { get; set; }
-        public object Against { get; set; }
+        public object FirstInstance { get; set; }
+        public object SecondInstance { get; set; }
         public bool ExpectedResult { get; set; }
     }
 }

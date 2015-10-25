@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Linq;
 using EqualityTests.Exception;
 using Ploeh.AutoFixture.Idioms;
-using Ploeh.AutoFixture.Kernel;
 
 namespace EqualityTests.Assertions
 {
     public class EqualityOperatorValueCheckAssertion : IdiomaticAssertion
     {
-        private readonly ISpecimenBuilder specimenBuilder;
+        private readonly IEqualityTestCaseProvider equalityTestCaseProvider;
 
-        public EqualityOperatorValueCheckAssertion(ISpecimenBuilder specimenBuilder)
+        public EqualityOperatorValueCheckAssertion(IEqualityTestCaseProvider equalityTestCaseProvider)
         {
-            if (specimenBuilder == null)
+            if (equalityTestCaseProvider == null)
             {
-                throw new ArgumentNullException("specimenBuilder");
+                throw new ArgumentNullException("equalityTestCaseProvider");
             }
-            this.specimenBuilder = specimenBuilder;
+            this.equalityTestCaseProvider = equalityTestCaseProvider;
         }
 
         public override void Verify(Type type)
@@ -29,29 +27,24 @@ namespace EqualityTests.Assertions
             var equalityOperator =
                 type.GetMethod("op_Equality", new[] {type, type});
 
-            var tracker = new ConstructorArgumentsTracker(specimenBuilder, type.GetConstructors().Single());
-
-            var instance = tracker.CreateNewInstance();
-            var anotherInstance = tracker.CreateNewInstanceWithTheSameCtorArgsAsIn(instance);
-
-            var equalityOperatorResult = (bool)equalityOperator.Invoke(null, new[] { instance, anotherInstance });
-
-            if (equalityOperatorResult == false)
+            foreach (var testCase in equalityTestCaseProvider.For(type))
             {
-                throw new EqualityOperatorValueCheckException(
-                    string.Format(
-                        "Expected type {0} == operator to perform value check but looks like it performs identity check",
-                        type.Name));
-            }
+                var result =
+                    (bool) equalityOperator.Invoke(null, new[] {testCase.FirstInstance, testCase.SecondInstance});
 
-            foreach (var distinctInstance in tracker.CreateDistinctInstancesByChaningOneByOneCtorArgIn(instance))
-            {
-                if (instance.Equals(distinctInstance) !=
-                    (bool) equalityOperator.Invoke(null, new[] {instance, distinctInstance}))
+                if (result != testCase.ExpectedResult)
                 {
+                    if (testCase.ExpectedResult)
+                    {
+                        throw new EqualityOperatorValueCheckException(
+                            string.Format(
+                                "Expected type {0} == operator to perform value check but looks like it performs identity check",
+                                type.Name));
+                    }
+
                     throw new EqualityOperatorValueCheckException(
-                        string.Format("Expected type {0} == operator to returns the same results as Equals method",
-                            type.Name));
+                        string.Format("Expected type {0} == operator to returns result {1} for {2} == {3}",
+                            type.Name, testCase.ExpectedResult, testCase.FirstInstance, testCase.SecondInstance));
                 }
             }
         }

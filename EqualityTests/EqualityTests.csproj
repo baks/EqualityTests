@@ -56,9 +56,9 @@
   <ItemGroup>
     <Compile Include="EqualityTestCase.cs" />
     <Compile Include="ConstructorArgumentsTracker.cs" />
-    <Compile Include="Assertions\EqualityOperatorAssertion.cs" />
     <Compile Include="Assertions\EqualityOperatorOverloadAssertion.cs" />
     <Compile Include="Assertions\EqualityOperatorValueCheckAssertion.cs" />
+    <Compile Include="EqualityTestCaseProvider.cs" />
     <Compile Include="EqualityTests.cs" />
     <Compile Include="Assertions\EqualsValueCheckAssertion.cs" />
     <Compile Include="Assertions\EqualsOverrideAssertion.cs" />

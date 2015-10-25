@@ -19,6 +19,8 @@ namespace EqualityTests
 
         private static IEnumerable<IdiomaticAssertion> EqualityAssertions(ISpecimenBuilder specimenBuilder)
         {
+            var equalityTestCaseProvider = new EqualityTestCaseProvider(specimenBuilder);
+
             yield return new EqualsOverrideAssertion();
             yield return new GetHashCodeOverrideAssertion();
             yield return new EqualsSelfAssertion(specimenBuilder);
@@ -26,12 +28,12 @@ namespace EqualityTests
             yield return new EqualsTransitiveAssertion(specimenBuilder);
             yield return new EqualsSuccessiveAssertion(specimenBuilder);
             yield return new EqualsNullAssertion(specimenBuilder);
-            yield return new EqualsValueCheckAssertion(new EqualityTestCaseProvider(specimenBuilder));
+            yield return new EqualsValueCheckAssertion(equalityTestCaseProvider);
             //new GetHashCodeCorrectAssertion(),
             yield return new GetHashCodeSuccessiveAssertion(specimenBuilder);
             yield return new EqualityOperatorOverloadAssertion();
             yield return new InequalityOperatorOverloadAssertion();
-            yield return new EqualityOperatorValueCheckAssertion(specimenBuilder);
+            yield return new EqualityOperatorValueCheckAssertion(equalityTestCaseProvider);
             yield return new InequalityOperatorValueCheckAssertion(specimenBuilder);
             yield return new IEquatableImplementedAssertion();
             //new IEquatableCorrectAssertion()
