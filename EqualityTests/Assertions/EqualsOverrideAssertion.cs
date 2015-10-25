@@ -2,7 +2,7 @@
 using EqualityTests.Extensions;
 using Ploeh.AutoFixture.Idioms;
 
-namespace EqualityTests
+namespace EqualityTests.Assertions
 {
     public class EqualsOverrideAssertion : IdiomaticAssertion
     {

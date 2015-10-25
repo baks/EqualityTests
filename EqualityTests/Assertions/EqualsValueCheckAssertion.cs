@@ -5,7 +5,7 @@ using EqualityTests.Exception;
 using Ploeh.AutoFixture.Idioms;
 using Ploeh.AutoFixture.Kernel;
 
-namespace EqualityTests
+namespace EqualityTests.Assertions
 {
     public class TestCase
     {

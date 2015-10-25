@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using EqualityTests.Assertions;
 using EqualityTests.Exception;
 using Ploeh.AutoFixture.Xunit2;
 using Xunit;

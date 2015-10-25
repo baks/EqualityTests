@@ -1,4 +1,5 @@
 ﻿using EqualityTests.AcceptanceTests.Customizations;
+using EqualityTests.Assertions;
 using EqualityTests.Exception;
 using Ploeh.AutoFixture.Xunit2;
 using Xunit;

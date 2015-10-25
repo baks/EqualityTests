@@ -1,4 +1,5 @@
-﻿using Ploeh.AutoFixture;
+﻿using EqualityTests.Assertions;
+using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
 
 namespace EqualityTests.AcceptanceTests.Customizations

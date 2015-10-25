@@ -5,13 +5,13 @@ using EqualityTests.Extensions;
 using Ploeh.AutoFixture.Idioms;
 using Ploeh.AutoFixture.Kernel;
 
-namespace EqualityTests
+namespace EqualityTests.Assertions
 {
-    public class EqualsSymmetricAssertion : IdiomaticAssertion
+    public class EqualityOperatorAssertion : IdiomaticAssertion
     {
         private readonly ISpecimenBuilder builder;
 
-        public EqualsSymmetricAssertion(ISpecimenBuilder builder)
+        public EqualityOperatorAssertion(ISpecimenBuilder builder)
         {
             if (builder == null)
             {
@@ -27,7 +27,7 @@ namespace EqualityTests
                 throw new ArgumentNullException("methodInfo");
             }
 
-            if (methodInfo.ReflectedType == null && !methodInfo.IsObjectEqualsOverrideMethod())
+            if (methodInfo.ReflectedType == null && !methodInfo.IsEqualityOperator())
             {
                 return;
             }
@@ -35,15 +35,15 @@ namespace EqualityTests
             var firstInstance = builder.CreateInstanceOfType(methodInfo.ReflectedType);
             var secondInstance = builder.CreateInstanceOfType(methodInfo.ReflectedType);
 
-            var firstComparisonResult = firstInstance.Equals(secondInstance);
-            var secondComparisonResult = secondInstance.Equals(firstInstance);
+            var equalsResult = firstInstance.Equals(secondInstance);
 
-            if (firstComparisonResult != secondComparisonResult)
+            var equalityOperatorResult = (bool)methodInfo.Invoke(null, new[] {firstInstance, secondInstance});
+
+            if (equalsResult != equalityOperatorResult)
             {
-                throw new EqualsSymmetricException(
-                    string.Format(
-                        "Equals implementation of type {0} is not symmetric. x.Equals(y) returns {1} but y.Equals(x) return {2}",
-                        methodInfo.ReflectedType, firstComparisonResult, secondComparisonResult));
+                throw new EqualityOperatorException(string.Format(
+                    "Equality operator for type {0} returns {1} where Equals method for that type returns {2}",
+                    methodInfo.ReflectedType, equalityOperatorResult, equalsResult));
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Linq;
 using EqualityTests.Exception;
 using Ploeh.AutoFixture.Idioms;
 
-namespace EqualityTests
+namespace EqualityTests.Assertions
 {
     public class IEquatableImplementedAssertion : IdiomaticAssertion
     {

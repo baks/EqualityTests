@@ -1,4 +1,5 @@
-﻿using Ploeh.AutoFixture.Idioms;
+﻿using EqualityTests.Assertions;
+using Ploeh.AutoFixture.Idioms;
 using Ploeh.AutoFixture.Xunit2;
 using Xunit;
 

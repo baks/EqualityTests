@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using EqualityTests.Exception;
 using EqualityTests.Extensions;
 using Ploeh.AutoFixture.Idioms;
 using Ploeh.AutoFixture.Kernel;
 
-namespace EqualityTests
+namespace EqualityTests.Assertions
 {
     public class EqualsTransitiveAssertion : IdiomaticAssertion
     {
