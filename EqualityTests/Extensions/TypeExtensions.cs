@@ -19,5 +19,10 @@ namespace EqualityTests.Extensions
         {
             return type.GetMethod("op_Inequality", new[] { type, type });
         }
+
+        public static MethodInfo GetStronglyTypedEqualsMethod(this Type type)
+        {
+            return type.GetMethod("Equals", new[] { type });
+        }
     }
 }

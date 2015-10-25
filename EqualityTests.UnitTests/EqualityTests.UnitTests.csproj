@@ -94,6 +94,7 @@
     <Compile Include="EqualsTransitiveAssertionTests.cs" />
     <Compile Include="GetHashCodeOverrideAssertionTests.cs" />
     <Compile Include="IEquatableImplementedAssertionTests.cs" />
+    <Compile Include="IEquatableValueCheckAssertionTests.cs" />
     <Compile Include="InequalityOperatorOverloadAssertionTests.cs" />
     <Compile Include="InequalityOperatorValueCheckAssertionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

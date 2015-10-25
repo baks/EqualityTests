@@ -20,12 +20,20 @@ namespace EqualityTests
 
         public EqualityTestsConfiguration<T> ShouldBeEqualTo(T obj)
         {
+            if (obj == null)
+            {
+                throw new ArgumentNullException("obj");
+            }
             testCases.Add(new EqualityTestCase(instance, obj, true));
             return this;
         }
 
         public EqualityTestsConfiguration<T> ShouldNotBeEqualTo(T obj)
         {
+            if (obj == null)
+            {
+                throw new ArgumentNullException("obj");
+            }
             testCases.Add(new EqualityTestCase(instance, obj, false));
             return this;
         }

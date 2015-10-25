@@ -50,7 +50,7 @@ namespace EqualityTests
             yield return new EqualityOperatorValueCheckAssertion(equalityTestCaseProvider);
             yield return new InequalityOperatorValueCheckAssertion(equalityTestCaseProvider);
             yield return new IEquatableImplementedAssertion();
-            //new IEquatableCorrectAssertion()
+            yield return new IEquatableValueCheckAssertion(equalityTestCaseProvider);
         }
     }
 }
