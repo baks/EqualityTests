@@ -9,5 +9,10 @@ namespace EqualityTests.Extensions
         {
             return type.GetMethod("Equals", new[] {typeof (object)});
         }
+
+        public static MethodInfo GetEqualityOperatorMethod(this Type type)
+        {
+            return type.GetMethod("op_Equality", new[] { type, type });
+        }
     }
 }

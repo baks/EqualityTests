@@ -1,5 +1,6 @@
 ﻿using System;
 using EqualityTests.Exception;
+using EqualityTests.Extensions;
 using Ploeh.AutoFixture.Idioms;
 
 namespace EqualityTests.Assertions
@@ -13,8 +14,7 @@ namespace EqualityTests.Assertions
                 throw new ArgumentNullException("type");
             }
 
-            var equalityOperatorOverload =
-                type.GetMethod("op_Equality", new[] {type, type});
+            var equalityOperatorOverload = type.GetEqualityOperatorMethod();
 
             if (equalityOperatorOverload == null)
             {
