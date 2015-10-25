@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EqualityTests.Assertions;
+using EqualityTests.Extensions;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Idioms;
 using Ploeh.AutoFixture.Kernel;
@@ -10,17 +12,29 @@ namespace EqualityTests
     {
         public static void Assert()
         {
-            var compositeAssertion = new CompositeIdiomaticAssertion(EqualityAssertions(new Fixture()));
+            var fixture = new Fixture();
+            var compositeAssertion =
+                new CompositeIdiomaticAssertion(EqualityAssertions(fixture, new EqualityTestCaseProvider(fixture)));
 
             compositeAssertion.Verify(typeof(T));
-            compositeAssertion.Verify(typeof(T).GetMethod("Equals", new[] { typeof(object) }));
+            compositeAssertion.Verify(typeof(T).GetEqualsMethod());
             compositeAssertion.Verify(typeof(T).GetMethod("GetHashCode"));
         }
 
-        private static IEnumerable<IdiomaticAssertion> EqualityAssertions(ISpecimenBuilder specimenBuilder)
+        public static void Assert(Func<EqualityTestsConfiguration<T>> configuration)
         {
-            var equalityTestCaseProvider = new EqualityTestCaseProvider(specimenBuilder);
+            var fixture = new Fixture();
+            var compositeAssertion =
+                new CompositeIdiomaticAssertion(EqualityAssertions(fixture, configuration()));
 
+            compositeAssertion.Verify(typeof(T));
+            compositeAssertion.Verify(typeof(T).GetEqualsMethod());
+            compositeAssertion.Verify(typeof(T).GetMethod("GetHashCode"));
+        }
+
+        private static IEnumerable<IdiomaticAssertion> EqualityAssertions(ISpecimenBuilder specimenBuilder,
+            IEqualityTestCaseProvider equalityTestCaseProvider)
+        {
             yield return new EqualsOverrideAssertion();
             yield return new GetHashCodeOverrideAssertion();
             yield return new EqualsSelfAssertion(specimenBuilder);

@@ -25,11 +25,11 @@ namespace EqualityTests
             var instance = tracker.CreateNewInstance();
             var anotherInstance = tracker.CreateNewInstanceWithTheSameCtorArgsAsIn(instance);
 
-            yield return new EqualityTestCase {FirstInstance = instance, SecondInstance = anotherInstance, ExpectedResult = true};
+            yield return new EqualityTestCase(instance, anotherInstance, true);
 
             foreach (var distinctInstance in tracker.CreateDistinctInstancesByChaningOneByOneCtorArgIn(instance))
             {
-                yield return new EqualityTestCase {FirstInstance = instance, SecondInstance = distinctInstance, ExpectedResult = false};
+                yield return new EqualityTestCase(instance, distinctInstance, false);
             }
         }
     }

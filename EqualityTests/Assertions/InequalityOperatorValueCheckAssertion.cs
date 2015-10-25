@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 using EqualityTests.Exception;
 using EqualityTests.Extensions;
 using Ploeh.AutoFixture.Idioms;
-using Ploeh.AutoFixture.Kernel;
 
 namespace EqualityTests.Assertions
 {
@@ -36,7 +34,7 @@ namespace EqualityTests.Assertions
 
                 if (result == testCase.ExpectedResult)
                 {
-                    if (testCase.ExpectedResult == false)
+                    if (testCase.ExpectedResult)
                     {
                         throw new InequalityOperatorValueCheckException(
                             string.Format(

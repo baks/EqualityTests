@@ -1,19 +1,18 @@
 ﻿using EqualityTests.Assertions;
 using EqualityTests.Exception;
-using Ploeh.AutoFixture.Xunit2;
 using Xunit;
 
 namespace EqualityTests.AcceptanceTests
 {
     public class InequalityOperatorValueCheckAssertionTests
     {
-        [Theory, AutoData]
+        [Theory, AutoTestData]
         public void ShouldNotThrowWhenInequalityOperatorPerformsValueCheck(InequalityOperatorValueCheckAssertion sut)
         {
             EqualityTestAssert.ExceptionWasNotThrownForTestType<ClassWithInequalityOperatorValueCheck>(sut);
         }
 
-        [Theory, AutoData]
+        [Theory, AutoTestData]
         public void ShouldThrowWhenInequalityOperatorPerformsIdentityCheck(InequalityOperatorValueCheckAssertion sut)
         {
             EqualityTestAssert
@@ -21,7 +20,7 @@ namespace EqualityTests.AcceptanceTests
                 <InequalityOperatorValueCheckException, ClassWithInequalityOperatorIdentityCheck>(sut);
         }
 
-        [Theory, AutoData]
+        [Theory, AutoTestData]
         public void ShouldExplainWhyExceptionIsThrownWhenInequalityOperatorPerformsIdentityCheck(InequalityOperatorValueCheckAssertion sut)
         {
             var exception = Record.Exception(
@@ -31,26 +30,6 @@ namespace EqualityTests.AcceptanceTests
                 string.Format(
                     "Expected type {0} != operator to perform value check but looks like it performs identity check",
                     typeof (ClassWithInequalityOperatorIdentityCheck).Name), exception.Message);
-        }
-
-        [Theory, AutoData]
-        public void ShouldThrowWhenInequalityOperatorsDiffersFromEqualsResults(InequalityOperatorValueCheckAssertion sut)
-        {
-            EqualityTestAssert
-                .ExceptionWasThrownForTestType
-                <InequalityOperatorValueCheckException, ClassWithInequalityOperatorThatDifferFromEqualsMethod>(sut);
-        }
-
-        [Theory, AutoData]
-        public void ShouldExplainWhyExceptionIsThrownWhenInequalityOperatorDifferFromEqualsResults(InequalityOperatorValueCheckAssertion sut)
-        {
-            var exception = Record.Exception(
-    () => sut.Verify(typeof(ClassWithInequalityOperatorThatDifferFromEqualsMethod)));
-
-            Assert.Contains(
-                string.Format(
-                    "Expected type {0} != operator to returns equivalent results as Equals method",
-                    typeof (ClassWithInequalityOperatorThatDifferFromEqualsMethod).Name), exception.Message);
         }
 
         public class ClassWithInequalityOperatorValueCheck

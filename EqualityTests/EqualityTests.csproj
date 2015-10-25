@@ -64,6 +64,8 @@
     <Compile Include="Assertions\EqualsOverrideAssertion.cs" />
     <Compile Include="Assertions\EqualsSymmetricAssertion.cs" />
     <Compile Include="Assertions\EqualsTransitiveAssertion.cs" />
+    <Compile Include="EqualityTestsConfiguration.cs" />
+    <Compile Include="EqualityTestsConfigurer.cs" />
     <Compile Include="Exception\EqualityOperatorException.cs" />
     <Compile Include="Exception\EqualityOperatorValueCheckException.cs" />
     <Compile Include="Exception\EqualsValueCheckException.cs" />
