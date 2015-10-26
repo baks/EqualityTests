@@ -13,7 +13,7 @@ namespace EqualityTests.UnitTests
         public void ShouldGuardCheckConstructorArguments(GuardClauseAssertion guardClauseAssertion)
         {
             guardClauseAssertion.Verify(typeof (ConstructorArgumentsTracker).GetConstructors().Single());
-        }     
+        }   
     }
 
     public class ConstructorArgumentsTrackerTests_CreateNewInstanceMethod
