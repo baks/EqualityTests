@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assertions\GetHashCodeValueCheckAssertion.cs" />
     <Compile Include="Assertions\IEquatableValueCheckAssertion.cs" />
     <Compile Include="EqualityTestCase.cs" />
     <Compile Include="ConstructorArgumentsTracker.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Exception\EqualsValueCheckException.cs" />
     <Compile Include="Exception\EqualsSymmetricException.cs" />
     <Compile Include="Exception\EqualsTransitiveException.cs" />
+    <Compile Include="Exception\GetHashCodeValueCheckException.cs" />
     <Compile Include="Exception\IEquatableImplementedException.cs" />
     <Compile Include="Exception\IEquatableValueCheckException.cs" />
     <Compile Include="Exception\InequalityOperatorException.cs" />

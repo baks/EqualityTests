@@ -82,6 +82,7 @@
     <Compile Include="EqualsSymmetricTests.cs" />
     <Compile Include="EqualsTransitiveTests.cs" />
     <Compile Include="GetHashCodeOverrideAssertionTests.cs" />
+    <Compile Include="GetHashCodeValueCheckAssertionTests.cs" />
     <Compile Include="IEquatableImplementedAssertionTests.cs" />
     <Compile Include="IEquatableValueCheckAssertionTests.cs" />
     <Compile Include="InequalityOperatorOverloadAssertionTests.cs" />

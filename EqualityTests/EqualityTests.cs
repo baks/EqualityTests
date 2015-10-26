@@ -33,7 +33,7 @@ namespace EqualityTests
             yield return new EqualsSuccessiveAssertion(specimenBuilder);
             yield return new EqualsNullAssertion(specimenBuilder);
             yield return new EqualsValueCheckAssertion(equalityTestCaseProvider);
-            //new GetHashCodeCorrectAssertion(),
+            yield return new GetHashCodeValueCheckAssertion(equalityTestCaseProvider);
             yield return new GetHashCodeSuccessiveAssertion(specimenBuilder);
             yield return new EqualityOperatorOverloadAssertion();
             yield return new InequalityOperatorOverloadAssertion();
