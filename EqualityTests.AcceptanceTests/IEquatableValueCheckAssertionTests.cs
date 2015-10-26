@@ -15,6 +15,18 @@ namespace EqualityTests.AcceptanceTests
         }
 
         [Theory, AutoTestData]
+        public void ShouldExplainWhyExceptionIsThrownWhenIEquatablePerformsIdentityCheck(IEquatableValueCheckAssertion sut)
+        {
+            var exception = Record.Exception(
+                () => sut.Verify(typeof(IEquatableWithIdentityCheck)));
+
+            Assert.Contains(
+                string.Format(
+                    "Expected IEquatable<{0}>.Equals method to perform value check but looks like it performs identity check",
+                    typeof(IEquatableWithIdentityCheck).Name), exception.Message);
+        }
+
+        [Theory, AutoTestData]
         public void ShouldNotThrowWhenIEquatablePerformsValueCheck(IEquatableValueCheckAssertion sut)
         {
             EqualityTestAssert.ExceptionWasNotThrownForTestType<IEquatableWithValueCheck>(sut);

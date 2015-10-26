@@ -10,22 +10,12 @@ namespace EqualityTests
 {
     public static class EqualityTestsFor<T> where T : class
     {
-        public static void Assert()
+        public static void Assert(Func<EqualityTestsConfiguration<T>> configuration = null)
         {
             var fixture = new Fixture();
             var compositeAssertion =
-                new CompositeIdiomaticAssertion(EqualityAssertions(fixture, new EqualityTestCaseProvider(fixture)));
-
-            compositeAssertion.Verify(typeof(T));
-            compositeAssertion.Verify(typeof(T).GetEqualsMethod());
-            compositeAssertion.Verify(typeof(T).GetMethod("GetHashCode"));
-        }
-
-        public static void Assert(Func<EqualityTestsConfiguration<T>> configuration)
-        {
-            var fixture = new Fixture();
-            var compositeAssertion =
-                new CompositeIdiomaticAssertion(EqualityAssertions(fixture, configuration()));
+                new CompositeIdiomaticAssertion(EqualityAssertions(fixture,
+                    (IEqualityTestCaseProvider) configuration() ?? new EqualityTestCaseProvider(fixture)));
 
             compositeAssertion.Verify(typeof(T));
             compositeAssertion.Verify(typeof(T).GetEqualsMethod());

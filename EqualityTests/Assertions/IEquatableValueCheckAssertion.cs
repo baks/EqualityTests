@@ -35,10 +35,17 @@ namespace EqualityTests.Assertions
                 {
                     if (testCase.ExpectedResult)
                     {
-                        throw new IEquatableValueCheckException();
+                        throw new IEquatableValueCheckException(
+                            string.Format(
+                                "Expected IEquatable<{0}>.Equals method to perform value check but looks like it performs identity check",
+                                type.Name));
                     }
 
-                    throw new IEquatableValueCheckException();
+                    throw new IEquatableValueCheckException(
+                        string.Format(
+                            "Expected IEquatable<{0}>.Equals method return {1}, but {2} was returned for {3} {4}",
+                            type.Name, testCase.ExpectedResult, !testCase.ExpectedResult,
+                            testCase.FirstInstance, testCase.SecondInstance));
                 }
             }
         }
