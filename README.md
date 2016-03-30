@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/34cbe6bp2k33yond?svg=true)](https://ci.appveyor.com/project/baks/equalitytests)
 
-You can find more information [here](http://baks.github.io/2015/10/26/testing-for-equality/).
+You can find more information [here](http://baks.github.io/2015/10/26/testing-for-equality).
 
 ### Equality Test assertions
 
