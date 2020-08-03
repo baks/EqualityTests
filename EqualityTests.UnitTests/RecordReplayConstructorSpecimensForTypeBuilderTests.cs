@@ -1,9 +1,9 @@
 ﻿using EqualityTests.Extensions;
 using NSubstitute;
-using Ploeh.AutoFixture.AutoNSubstitute;
-using Ploeh.AutoFixture.Idioms;
-using Ploeh.AutoFixture.Kernel;
-using Ploeh.AutoFixture.Xunit2;
+using AutoFixture.AutoNSubstitute;
+using AutoFixture.Idioms;
+using AutoFixture.Kernel;
+using AutoFixture.NUnit3;
 using Xunit;
 
 namespace EqualityTests.UnitTests

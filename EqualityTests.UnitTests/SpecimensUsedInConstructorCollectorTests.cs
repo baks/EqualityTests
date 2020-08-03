@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Ploeh.AutoFixture.Kernel;
+using AutoFixture.Kernel;
 using Xunit;
 
 namespace EqualityTests.UnitTests

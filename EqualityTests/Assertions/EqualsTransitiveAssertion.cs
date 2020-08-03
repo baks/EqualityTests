@@ -2,8 +2,8 @@
 using System.Reflection;
 using EqualityTests.Exception;
 using EqualityTests.Extensions;
-using Ploeh.AutoFixture.Idioms;
-using Ploeh.AutoFixture.Kernel;
+using AutoFixture.Idioms;
+using AutoFixture.Kernel;
 
 namespace EqualityTests.Assertions
 {

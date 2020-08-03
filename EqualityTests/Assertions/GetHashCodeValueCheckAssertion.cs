@@ -1,6 +1,6 @@
 ﻿using System;
 using EqualityTests.Exception;
-using Ploeh.AutoFixture.Idioms;
+using AutoFixture.Idioms;
 
 namespace EqualityTests.Assertions
 {

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using NSubstitute;
-using Ploeh.AutoFixture.AutoNSubstitute;
-using Ploeh.AutoFixture.Idioms;
-using Ploeh.AutoFixture.Kernel;
+using AutoFixture.AutoNSubstitute;
+using AutoFixture.Idioms;
+using AutoFixture.Kernel;
 using Xunit;
 
 namespace EqualityTests.UnitTests

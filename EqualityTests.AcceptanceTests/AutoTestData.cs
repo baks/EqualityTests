@@ -1,6 +1,6 @@
 ﻿using EqualityTests.AcceptanceTests.Customizations;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Xunit2;
+using AutoFixture;
+using AutoFixture.NUnit3;
 
 namespace EqualityTests.AcceptanceTests
 {

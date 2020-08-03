@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using EqualityTests.Assertions;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Idioms;
-using Ploeh.AutoFixture.Xunit2;
+using AutoFixture;
+using AutoFixture.Idioms;
+using AutoFixture.NUnit3;
 using Xunit;
 
 namespace EqualityTests.UnitTests

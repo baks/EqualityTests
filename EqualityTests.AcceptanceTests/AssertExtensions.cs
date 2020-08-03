@@ -1,4 +1,4 @@
-﻿using Ploeh.AutoFixture.Idioms;
+﻿using AutoFixture.Idioms;
 using Xunit;
 
 namespace EqualityTests.AcceptanceTests
