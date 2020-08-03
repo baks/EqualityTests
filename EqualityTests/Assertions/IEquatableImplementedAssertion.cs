@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using EqualityTests.Exception;
-using Ploeh.AutoFixture.Idioms;
+using AutoFixture.Idioms;
 
 namespace EqualityTests.Assertions
 {

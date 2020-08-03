@@ -1,5 +1,5 @@
 ﻿using System;
-using Ploeh.AutoFixture.Kernel;
+using AutoFixture.Kernel;
 
 namespace EqualityTests.Extensions
 {

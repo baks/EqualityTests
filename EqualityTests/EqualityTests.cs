@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using EqualityTests.Assertions;
 using EqualityTests.Extensions;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Idioms;
-using Ploeh.AutoFixture.Kernel;
+using AutoFixture;
+using AutoFixture.Idioms;
+using AutoFixture.Kernel;
 
 namespace EqualityTests
 {

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using EqualityTests.Assertions;
 using EqualityTests.Exception;
-using Ploeh.AutoFixture.Xunit2;
+using AutoFixture.NUnit3;
 using Xunit;
 
 namespace EqualityTests.AcceptanceTests
